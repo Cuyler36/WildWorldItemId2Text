@@ -1,0 +1,15 @@
+﻿<Window x:Class="WildWorldItemId2TextWpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WildWorldItemId2TextWpf"
+        mc:Ignorable="d"
+        Title="Wild World ItemId2Text" Height="180" Width="300" ResizeMode="CanMinimize">
+    <Grid>
+        <TextBox x:Name="ItemIdTextBox" HorizontalAlignment="Center" MaxLength="4" Height="23" Margin="0,36,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="40"/>
+        <TextBlock x:Name="OutTextBlock" HorizontalAlignment="Center" Margin="0,100,0,0" TextAlignment="Center" TextWrapping="NoWrap" Text="" VerticalAlignment="Top"/>
+        <Button x:Name="ConvertButton" Content="Get Text" HorizontalAlignment="Center" Margin="0,64,0,0" VerticalAlignment="Top" Width="75"/>
+        <Label x:Name="Label" Content="Enter the hexadecimal item id and click Get Text!" HorizontalAlignment="Center" Margin="0,8,0,0" VerticalAlignment="Top"/>
+    </Grid>
+</Window>
