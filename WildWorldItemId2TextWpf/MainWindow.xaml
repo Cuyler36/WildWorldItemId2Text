@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Wild World ItemId2Text" Height="500" Width="400" ResizeMode="CanMinimize">
     <Grid>
-        <TextBlock x:Name="OutTextBlock" HorizontalAlignment="Center" Margin="0,14,0,0" TextAlignment="Center" TextWrapping="NoWrap" FontSize="14" Text="" VerticalAlignment="Top"/>
+        <TextBox x:Name="OutTextBlock" BorderThickness="0" Background="Transparent" IsReadOnly="True" HorizontalAlignment="Center" Margin="0,14,0,0" TextAlignment="Center" TextWrapping="NoWrap" FontSize="14" Text="" VerticalAlignment="Top"/>
         <Label x:Name="Label" Content="Search:" HorizontalAlignment="Center" Margin="0,58,260,0" VerticalAlignment="Top"/>
         <TextBox x:Name="SearchTextBox" HorizontalAlignment="Center" Height="23" Margin="0,60,0,0" TextWrapping="NoWrap" Text="" VerticalAlignment="Top" Width="200"/>
         <ListBox x:Name="ItemListBox" HorizontalAlignment="Center" Height="360" Margin="0,90,0,0" VerticalAlignment="Top" Width="360" FontSize="14" FontFamily="Courier New"/>
