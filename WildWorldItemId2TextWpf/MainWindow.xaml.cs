@@ -1,18 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace WildWorldItemId2TextWpf
 {
@@ -40,51 +35,86 @@ namespace WildWorldItemId2TextWpf
             ">", "'", "\"", "_", "+", "=", "&", "@", ":", ";", "×", "÷", "🌢", "★", "♥", "♪"
         };
 
+        private readonly List<ushort> _itemIdList;
+        private readonly List<string> _itemNameList;
+
         public MainWindow()
         {
             InitializeComponent();
 
-            ConvertButton.Click += (_, __) => ParseItemIdString(ItemIdTextBox.Text);
+            // Read item database & load it
+            using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(Properties.Resources.Items)))
+            {
+                using (var reader = new StreamReader(stream))
+                {
+                    (_itemIdList, _itemNameList) = LoadWildWorldItemDatabase(reader);
+                }
+            }
+
+            // Create the list view resource
+            var stringList = GetItemListStrings();
+
+            // Set the data context of the list view
+            ItemListBox.ItemsSource = stringList;
+
+            // Setup ListView stuff
+            var view = CollectionViewSource.GetDefaultView(ItemListBox.ItemsSource);
+            view.Filter = o =>
+                string.IsNullOrWhiteSpace(SearchTextBox.Text) || o is string str && str.Contains(SearchTextBox.Text);
+
+            SearchTextBox.TextChanged += (_, __) => view.Refresh();
+            ItemListBox.SelectionChanged += (_, __) =>
+                OutTextBlock.Text = Regex.Replace((string) ItemListBox.SelectedItem, @"\s+", " ").Replace("->", "\n");
         }
 
-        private static bool OnlyHexInString(string test) =>
-            System.Text.RegularExpressions.Regex.IsMatch(test, @"\A\b(0[xX])?[0-9a-fA-F]+\b\Z");
-
-        public void ParseItemIdString(string itemIdStr)
+        private IEnumerable<string> GetItemListStrings()
         {
-            if (!OnlyHexInString(itemIdStr))
+            var strings = new List<string>();
+            for (var i = 0; i < _itemIdList.Count; i++)
             {
-                MessageBox.Show("The item id you entered doesn't appear to be in hexadecimal! Please try again.",
-                    "Item Id Parse Error",
-                    MessageBoxButton.OK, MessageBoxImage.Error);
-                OutTextBlock.Text = "Invalid";
+                strings.Add(GetStringForItem(i));
             }
-            else
+
+            return strings;
+        }
+
+        private string GetStringForItem(int idx)
+        {
+            var text = BitConverter.GetBytes(_itemIdList[idx])
+                .Aggregate("", (current, b) => current + WwJapaneseCharacterDictionary[b]).Replace("\0", "\\0")
+                .Replace("\n", "\\n").Replace(" ", "\\s");
+
+            return _itemNameList[idx].PadRight(30) + $" -> {text}";
+        }
+
+        private static (List<ushort>, List<string>) LoadWildWorldItemDatabase(StreamReader reader)
+        {
+            var itemIdList = new List<ushort>();
+            var itemNameList = new List<string>();
+
+            while (!reader.EndOfStream)
             {
-                var itemId = itemIdStr.Replace("0x", "");
-                if ((itemId.Length & 1) != 0)
+                var line = reader.ReadLine()?.Trim() ?? "";
+                if (line.StartsWith("//")) continue;
+
+                var itemId = line.Substring(0, 6);
+                if (!itemId.StartsWith("0x")) continue;
+
+                try
                 {
-                    itemId += "0";
-                    MessageBox.Show(
-                        $"The item id you entered didn't appear to be formatted correctly! It was adjusted to {itemId}!",
-                        "Item Id Parse Error",
-                        MessageBoxButton.OK, MessageBoxImage.Information);
+                    itemIdList.Add(ushort.Parse(itemId.Replace("0x", ""), NumberStyles.HexNumber));
+                }
+                catch
+                {
+                    Debug.WriteLine($"Error in loading item: {line}");
+                    continue;
                 }
 
-                if (ushort.TryParse(itemId, NumberStyles.HexNumber, null, out var hexItemId))
-                {
-                    var str = BitConverter.GetBytes(hexItemId)
-                        .Aggregate("", (current, b) => current + WwJapaneseCharacterDictionary[b]);
-
-                    OutTextBlock.Text = $"Enter the following for to get item id {hexItemId:X4}:\n{str}";
-                }
-                else
-                {
-                    MessageBox.Show($"Unable to parse the item id {itemId}! Please try again!", "Item Id Parse Error",
-                        MessageBoxButton.OK, MessageBoxImage.Error);
-                    OutTextBlock.Text = "Invalid";
-                }
+                // Add item name
+                itemNameList.Add(line.Substring(8));
             }
+
+            return (itemIdList, itemNameList);
         }
     }
 }

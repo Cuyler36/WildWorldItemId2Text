@@ -8,10 +8,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WildWorldItemId2TextWpf.Properties
-{
-
-
+namespace WildWorldItemId2TextWpf.Properties {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -19,52 +19,76 @@ namespace WildWorldItemId2TextWpf.Properties
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources
-    {
-
+    internal class Resources {
+        
         private static global::System.Resources.ResourceManager resourceMan;
-
+        
         private static global::System.Globalization.CultureInfo resourceCulture;
-
+        
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources()
-        {
+        internal Resources() {
         }
-
+        
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager
-        {
-            get
-            {
-                if ((resourceMan == null))
-                {
+        internal static global::System.Resources.ResourceManager ResourceManager {
+            get {
+                if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("WildWorldItemId2TextWpf.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
             }
         }
-
+        
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture
-        {
-            get
-            {
+        internal static global::System.Globalization.CultureInfo Culture {
+            get {
                 return resourceCulture;
             }
-            set
-            {
+            set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to //Flowers
+        ///0x0000, Red Tulips
+        ///0x0001, White Tulips
+        ///0x0002, Yellow Tulips
+        ///0x0003, Pink Tulips
+        ///0x0004, Purple Tulips
+        ///0x0005, Black Tulips
+        ///0x0006, White Pansies
+        ///0x0007, Yellow Pansies
+        ///0x0008, Red Pansies
+        ///0x0009, Purple Pansies
+        ///0x000A, Orange Pansies
+        ///0x000B, Blue Pansies
+        ///0x000C, White Cosmos
+        ///0x000D, Red Cosmos
+        ///0x000E, Yellow Cosmos
+        ///0x000F, Pink Cosmos
+        ///0x0010, Orange Cosmos
+        ///0x0011, Black Cosmos
+        ///0x0012, Red Roses
+        ///0x0013, White Roses
+        ///0x0014, Yellow Roses
+        ///0x0015, Pink Roses
+        ///0x0016, Orange Rose [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Items {
+            get {
+                return ResourceManager.GetString("Items", resourceCulture);
             }
         }
     }

@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WildWorldItemId2TextWpf"
         mc:Ignorable="d"
-        Title="Wild World ItemId2Text" Height="180" Width="300" ResizeMode="CanMinimize">
+        Title="Wild World ItemId2Text" Height="500" Width="400" ResizeMode="CanMinimize">
     <Grid>
-        <TextBox x:Name="ItemIdTextBox" HorizontalAlignment="Center" MaxLength="4" Height="23" Margin="0,36,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="40"/>
-        <TextBlock x:Name="OutTextBlock" HorizontalAlignment="Center" Margin="0,100,0,0" TextAlignment="Center" TextWrapping="NoWrap" Text="" VerticalAlignment="Top"/>
-        <Button x:Name="ConvertButton" Content="Get Text" HorizontalAlignment="Center" Margin="0,64,0,0" VerticalAlignment="Top" Width="75"/>
-        <Label x:Name="Label" Content="Enter the hexadecimal item id and click Get Text!" HorizontalAlignment="Center" Margin="0,8,0,0" VerticalAlignment="Top"/>
+        <TextBlock x:Name="OutTextBlock" HorizontalAlignment="Center" Margin="0,14,0,0" TextAlignment="Center" TextWrapping="NoWrap" FontSize="14" Text="" VerticalAlignment="Top"/>
+        <Label x:Name="Label" Content="Search:" HorizontalAlignment="Center" Margin="0,58,260,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="SearchTextBox" HorizontalAlignment="Center" Height="23" Margin="0,60,0,0" TextWrapping="NoWrap" Text="" VerticalAlignment="Top" Width="200"/>
+        <ListBox x:Name="ItemListBox" HorizontalAlignment="Center" Height="360" Margin="0,90,0,0" VerticalAlignment="Top" Width="360" FontSize="14" FontFamily="Courier New"/>
     </Grid>
 </Window>
